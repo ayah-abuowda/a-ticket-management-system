@@ -1,0 +1,1128 @@
+{
+	"info": {
+		"_postman_id": "a5498829-a57d-4016-baa9-7a284e00f343",
+		"name": "server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get api/customers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var customerId = jsonData._id",
+							"pm.environment.set(\"customer_id\", customerId);",
+							"",
+							"var getcustomerId = pm.variables.get(\"customer_id\");",
+							"",
+							"",
+							"pm.test(\"correct status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//const response = pm.response.json();",
+							"//console.log (response[3].customer_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/customers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete all customers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"var jsonData = pm.response.json();",
+							"var customerId = jsonData._id",
+							"pm.environment.set(\"customer_id\", customerId);",
+							"",
+							"var getcustomerId = pm.variables.get(\"customer_id\");",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/customers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create customers (register)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"AuthToken\", data.access_token);",
+							"",
+							"var jsonData = pm.response.json();",
+							"var customerId = jsonData._id",
+							"pm.environment.set(\"customer_id\", customerId);",
+							"var getcustomerId = pm.variables.get(\"customer_id\");",
+							"",
+							"",
+							"pm.test(\"Successful POST request\", () => {",
+							"  pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {},
+				"followAuthorizationHeader": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "AuthToken",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"aya abu\",\n    \"email\": \"aya@hotmail.com\",\n    \"username\": \"test\",\n    \"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/customers/register",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"var jsonData = pm.response.json();",
+							"var customerId = jsonData._id",
+							"pm.environment.set(\"customer_id\", customerId);",
+							"",
+							"",
+							"pm.test(\"Successful get request\", () => {",
+							"  pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"aya22\",\n    \"password\": \"222\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/customers/signin",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"signin"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all customers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"var customerId = jsonData._id",
+							"var getcustomerId = pm.variables.get(\"customer_id\");",
+							"",
+							"pm.environment.set(\"customer_id\", customerId);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//const response = pm.response.json();",
+							"//console.log (response[3].customer_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/customers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filter by Customer Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var customerId = jsonData._id",
+							"pm.environment.set(\"customer_id\", customerId);",
+							"",
+							"var getcustomerId = pm.variables.get(\"customer_id\");",
+							"",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/customers/?username=test",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						""
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "ay",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updating customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"var customerId = jsonData._id",
+							"pm.environment.set(\"customer_id\", customerId);",
+							"",
+							"var getcustomerId = pm.variables.get(\"customer_id\");",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"567\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/customers/{{customer_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"{{customer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buy a ticket(create new ticket)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.get(\"variable_key\");",
+							"pm.variables.get(\"variable_key\");",
+							"var jsonData = pm.response.json();",
+							"var ticketId = jsonData._id",
+							"pm.environment.set(\"ticket_id\", ticketId);",
+							"",
+							"var getticketId = pm.variables.get(\"ticket_id\");",
+							"",
+							"",
+							"pm.test(\"Successful POST request\", () => {",
+							"  pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"ticket_id\" : \"4\",\n\"price\" : 24,\n\"time\" : \"2021-11-18\" \n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all the tickets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create a review for an ticket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.globals.get(\"ticket_id\");",
+							"var reviewId = jsonData._id",
+							"pm.environment.set(\"review_id\", reviewId);",
+							"",
+							"pm.test(\"Successful POST request\", () => {",
+							"  pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comment_text\" : \"nice trip\",\n    \"rate\" : 4,\n    \"date\" : \"2019-10-01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets/{{ticket_id}}/reviews",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"{{ticket_id}}",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get one ticket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.get(\"variable_key\");",
+							"",
+							"var jsonData = pm.response.json();",
+							"var ticketId = jsonData._id",
+							"var getticketId = pm.variables.get(\"ticket_id\");",
+							"",
+							"pm.environment.set(\"ticket_id\", ticketId);",
+							"",
+							"var getticketId = pm.variables.get(\"ticket_id\");",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.environment.set(\"variable_key\", \"variable_value\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets/?{{ticket_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					],
+					"query": [
+						{
+							"key": "{{ticket_id}}",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update the tickets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"var ticketId = jsonData._id",
+							"pm.environment.set(\"ticket_id\", ticketId);",
+							"",
+							"var getticketId = pm.variables.get(\"ticket_id\");",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n\"time\": \"2021-12-30\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets/:{{ticket_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						":{{ticket_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{ticket_id}}",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update the tickets by patch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"var ticketId = jsonData._id",
+							"pm.environment.set(\"ticket_id\", ticketId);",
+							"",
+							"var getticketId = pm.variables.get(\"ticket_id\");",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"price\": \"100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets/{{ticket_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"{{ticket_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all tickets after delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get specific review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"var jsonData = pm.response.json();",
+							"var ticketId = jsonData._id",
+							"pm.environment.set(\"ticket_id\", ticketId);",
+							"",
+							"var reviewId = jsonData._id",
+							"pm.environment.set(\"review_id\", reviewId);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets/?{{ticket_id}}=615ea9ac614f3e0622710c25/reviews/&{{review_id}}=615ea9af614f3e0622710c27",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					],
+					"query": [
+						{
+							"key": "{{ticket_id}}",
+							"value": "615ea9ac614f3e0622710c25/reviews/"
+						},
+						{
+							"key": "{{review_id}}",
+							"value": "615ea9af614f3e0622710c27"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get specific  destionations (not work)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"var ticketId = jsonData._id",
+							"pm.environment.set(\"ticket_id\", ticketId);",
+							"",
+							"var destinationId = jsonData._id",
+							"pm.environment.set(\"destination_id\", destinationId);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets/?{{ticket_id}}/destinations/?{{review_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					],
+					"query": [
+						{
+							"key": "{{ticket_id}}/destinations/?{{review_id}}",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete one  ticket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"var ticketId = jsonData._id",
+							"pm.environment.set(\"ticket_id\", ticketId);",
+							"",
+							"var getticketId = pm.variables.get(\"ticket_id\");",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets/615dd6a666f8e3472471a652",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"615dd6a666f8e3472471a652"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all the reviews",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"",
+							"var jsonData = pm.response.json();",
+							"var ticketId = jsonData._id",
+							"pm.environment.set(\"ticket_id\", ticketId);",
+							"",
+							"var reviewId = jsonData._id",
+							"pm.environment.set(\"review_id\", reviewId);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets/?{{ticket_id}}/reviews",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					],
+					"query": [
+						{
+							"key": "{{ticket_id}}/reviews",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete All The Tickets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tickets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete one customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var customerId = jsonData._id",
+							"pm.environment.set(\"customer_id\", customerId);",
+							"",
+							"var getcustomerId = pm.variables.get(\"customer_id\");",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/customers/?{{customer_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						""
+					],
+					"query": [
+						{
+							"key": "{{customer_id}}",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "ticketId",
+			"value": "ticket_id"
+		},
+		{
+			"key": "customer_id",
+			"value": "_id"
+		},
+		{
+			"key": "review_id",
+			"value": "_id"
+		},
+		{
+			"key": "destination_id",
+			"value": ""
+		}
+	]
+}
