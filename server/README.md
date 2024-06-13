@@ -1,80 +1,81 @@
-# Server – ExpressJS Backend
+# Backend and Frontend Template
 
-This [ExpressJS](https://expressjs.com/) template provides the basic infrastructure for a JSON API with MongoDB persistency with [Mongoose](https://mongoosejs.com/).
+Latest version: https://git.ita.chalmers.se/courses/dit341/group-00-web (public Github [mirror](https://github.com/dit341/group-00-web))
 
-## Server Structure
+## Project Structure
 
 | File        | Purpose           | What you do?  |
 | ------------- | ------------- | ----- |
-| [README.md](./README.md) | Everything about the server | **READ ME** carefully! |
-| [app.js](./app.js) | JavaScript entry point for Express application | Import new routes/controllers |
-| `controllers/` | Implementation of Express endpoints | Define new route handlers |
-| `models/` | [Mongoose](https://mongoosejs.com/) models | Define data schema |
-| [tests/server.postman_collection.json](tests/server.postman_collection.json) | [Postman test scripts](https://learning.postman.com/docs/postman/scripts/test-scripts/) | Replace with your exported Postman test collection |
-| [docs/FAQ.md](docs/FAQ.md) | List of FAQs | Find answers to common questions |
-| [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | List of problems and solutions | Find solutions for common error messages |
-| [package.json](package.json) | Project meta-information | — |
-
-> NOTE: The (mandatory) exercises are essential for understanding this template and will *save* you time!
-
-Optional: Learn how to create such a project template in this [tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/skeleton_website).
+| `server/` | Backend server code | All your server code |
+| [server/README.md](server/README.md) | Everything about the server | **READ ME** carefully! |
+| `client/` | Frontend client code | All your client code |
+| [client/README.md](client/README.md) | Everything about the client | **READ ME** carefully! |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Free online production deployment | Deploy your app online in production mode |
+| [docs/LOCAL_DEPLOYMENT.md](docs/LOCAL_DEPLOYMENT.md) | Local production deployment | Deploy your app local in production mode |
 
 ## Requirements
 
-* [Node.js](https://nodejs.org/en/download/) (v14) => installation instructions for [Linux](https://github.com/nodesource/distributions), use installers for macOS and Windows (don't forget to restart your Bash shell)
-* [MongoDB](https://www.mongodb.com/download-center/community?jmp=nav) (v4.4) must be running locally on port 27017 => installation instructions for [macOS](https://github.com/joe4dev/dit032-setup/blob/master/macOS.md#mongodb), [Windows](https://github.com/joe4dev/dit032-setup/blob/master/Windows.md#mongodb), [Linux](https://github.com/joe4dev/dit032-setup/blob/master/Linux.md#mongodb)
-* [Postman](https://www.getpostman.com/downloads/) (v8) for API testing
+The version numbers in brackets indicate the tested versions but feel free to use more recent versions.
+You can also use alternative tools if you know how to configure them (e.g., Firefox instead of Chrome).
 
-## Project setup
+* [Git](https://git-scm.com/) (v2) => [installation instructions](https://www.atlassian.com/git/tutorials/install-git)
+  * [Add your Git username and set your email](https://docs.gitlab.com/ce/gitlab-basics/start-using-git.html#add-your-git-username-and-set-your-email)
+    * `git config --global user.name "YOUR_USERNAME"` => check `git config --global user.name`
+    * `git config --global user.email "email@example.com"` => check `git config --global user.email`
+  * > **Windows users**: We recommend to use the [Git Bash](https://www.atlassian.com/git/tutorials/git-bash) shell from your Git installation or the Bash shell from the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to run all shell commands for this project.
+* [Chalmers GitLab](https://git.ita.chalmers.se/) => Login with your **Chalmers CID** choosing "Sign in with" **Chalmers Login**. (contact [support@chalmers.se](mailto:support@chalmers.se) if you don't have one)
+  * DIT341 course group: https://git.ita.chalmers.se/courses/dit341
+  * [Setup SSH key with Gitlab](https://docs.gitlab.com/ee/ssh/)
+    * Create an SSH key pair `ssh-keygen -t ed25519 -C "email@example.com"` (skip if you already have one)
+    * Add your public SSH key to your Gitlab profile under https://git.ita.chalmers.se/profile/keys
+    * Make sure the email you use to commit is registered under https://git.ita.chalmers.se/profile/emails
+  * Checkout the [Backend-Frontend](https://git.ita.chalmers.se/courses/dit341/group-00-web) template `git clone git@git.ita.chalmers.se:courses/dit341/group-00-web.git`
+* [Server Requirements](./server/README.md#Requirements)
+* [Client Requirements](./client/README.md#Requirements)
 
-Make sure, you are in the server directory `cd server`
-
-Installs all project dependencies specified in [package.json](./package.json).
+## Getting started
 
 ```bash
-npm install
-```
+# Clone repository
+git clone git@git.ita.chalmers.se:courses/dit341/group-00-web.git
 
-## Start the server with auto-restarts for development
+# Change into the directory
+cd group-00-web
 
-Automatically restarts your server if you save any changes to local files.
-
-```bash
+# Setup backend
+cd server && npm install
 npm run dev
+
+# Setup frontend
+cd client && npm install
+npm run serve
 ```
 
-## Start the server
+> Check out the detailed instructions for [backend](./server/README.md) and [frontend](./client/README.md).
 
-```bash
-npm start
-```
+## Visual Studio Code (VSCode)
 
-## Run the Postman Tests
+Open the `server` and `client` in separate VSCode workspaces or open the combined [backend-frontend.code-workspace](./backend-frontend.code-workspace). Otherwise, workspace-specific settings don't work properly.
 
-Starts a new server on another port (default `3001`) and runs the `server` postman test collection against a test database (default `serverTestDB`).
+## System Definition (MS0)
 
-```bash
-npm test
-```
+### Purpose
 
-> The test database is dropped before each test execution. Adjust your tests to support this clean state.
+The project is a ticket management system where a user can buy and reserve tickets for their bus journeys. The user logs in or registers to the system, then sees scheduled buses, travel dates and the vacant seats. The user can proceed with the reservation if they want. The reservation is made by adding personal information and a convenient payment method for the user. After the payment process is successful, the user gets an activation code for their ticket that can be used while travelling.
 
-## Postman Tests
+### Pages
 
-We use the API testing tool Postman to define example HTTP requests and test assertions. Your tests will be automatically executed in GitLab pipelines whenever you push to the `master` branch. Try to do that as often as possible.
+* Login screen: The user can login or sign-up to the system. To login, they will be required to give their login credentials.
+* History: The user can see their scheduled tickets, past tickets and other information regarding their travels.
+* User profile: The user can see and edit the personal information that they have provided to the system.
+* Home screen: The user can search, save and buy tickets from this page.
 
-* [Set up Postman for your project](./docs/POSTMAN.md)
 
-> Remember to **export and commit** any test changes back to `tests/server.postman_collection.json` and make sure `npm test` succeeds for your final submission!
 
-## Error Handling
+### Entity-Relationship (ER) Diagram
 
-* [Error Handling in Node.js](https://www.joyent.com/node-js/production/design/errors)
-* [Error Handling in Express.js](https://expressjs.com/en/guide/error-handling.html)
+![Milestone0-_enitity_diagram.drawio](/uploads/f22c01623fa1871dcca6cbef13340f38/Milestone0-_enitity_diagram.drawio.png)
 
-## Debugging with VSCode
+## Teaser (MS3)
 
-1. Set a breakpoint by clicking on the left side of a line number
-2. Click *Run > Start Debugging* (Choose the "Debug Server" config if you opened the combined workspace)
-
-> Learn more in the [VSCode Debugging Docs](https://code.visualstudio.com/docs/editor/debugging).
+![Teaser](./images/teaser.png)
